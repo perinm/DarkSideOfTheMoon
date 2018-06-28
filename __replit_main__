@@ -1,5 +1,7 @@
 import turtle
 
+//deletarestalinha
+
 def funcaocor():
   return(corexterna-[0,(i*5)][i>5])
 
