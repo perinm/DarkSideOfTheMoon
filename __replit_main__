@@ -1,0 +1,129 @@
+import turtle
+
+def funcaocor():
+  return(corexterna-[0,(i*5)][i>5])
+
+def raiogay(t,ang,c):
+  t.seth(ang)
+  t.pencolor(c)
+  for i in range(15):
+    t.pensize(tamanhoRaioInicial+i*0.9)
+    t.fd(i*2)
+
+def desenhartriangulo(t):
+  t.pu()
+  t.seth(-120)
+  t.setpos(pos_raio_interno)
+  t.pensize(grossuraT)
+  t.color((195,214,223),'black')
+  t.pd()
+  t.begin_fill()
+  t.fd(lit)
+  t.lt(120)
+  t.fd(lt)
+  t.lt(120)
+  t.fd(lt)
+  t.lt(120)
+  topo_triangulo=t.pos()
+  t.fd(lt-lit)
+  t.end_fill()
+
+def posraiointerno(t):
+  for i in range (15):
+    t.pu()
+    t.setpos(pos_raio_interno)
+    t.seth(60)
+    t.seth(direcao_raio_vermelho)
+
+
+tamanhoRaioInicial=4
+t=turtle.Turtle()
+t.speed(0)
+window=turtle.Screen()
+t.tracer(1,0)
+window.tracer(1,0)
+window.bgcolor(21,21,21)
+t.pencolor(255,255,255)
+t.pensize(tamanhoRaioInicial)
+t.pu()
+t.lt(180)
+t.fd(250)
+t.pd()
+t.rt(160)
+t.fd(200)
+pos_raio_interno=t.pos()
+
+#construir triângulo
+
+lt=200
+lit=lt*0.55
+grossuraT=0.3
+  
+desenhartriangulo(t)
+t.lt(180)
+t.fd(lt-lit)
+t.rt(120)
+t.fd(lt-lit)
+pos_raio_externo_meio=t.pos()
+
+#construir raio externo
+
+t.lt(180)
+t.fd(0.125*lt)
+t.lt(180)
+a=-18
+for i in ((207,40,43),(224,129,45),(250,233,62),(32,163,72),(0,151,192),(99,88,146),(21,21,21)):
+  t.pd()
+  posraio_coratual=t.pos()
+  if(i==(207,40,43)):
+    posraio_vermelho=posraio_coratual
+  if(i==(99,88,146)):
+    posraio_roxo=posraio_coratual
+  raiogay(t,a,i)
+  if(i==(21,21,21)):
+    t.back(2)
+    t.seth(90)
+    t.fd(200)
+  t.pu()
+  t.setpos(posraio_coratual)
+  t.seth(-60)
+  if(i==(250,233,62) or i==(0,151,192)):
+    t.fd(lt*0.0416666/2)
+  else:
+    t.fd(lt*0.0416666)
+  a=a-1.1
+desenhartriangulo(t)
+t.up()
+
+#mover referencia posicao raio externo
+t.setpos(posraio_vermelho)
+t.seth(120)
+t.fd(3)
+posraio_vermelho=t.pos()
+t.setpos(posraio_roxo)
+t.seth(-60)
+t.fd(3)
+posraio_roxo=t.pos()
+
+#construir raio interno
+t.setpos(pos_raio_interno)
+t.seth(60)
+t.fd(2)
+t.seth(t.towards(posraio_vermelho))
+direcao_raio_vermelho=t.heading()
+t.pensize(0.8)
+corexterna=255
+t.pd()
+for i in range(int(t.distance(posraio_vermelho)-1)):
+  t.color(funcaocor(),funcaocor(),funcaocor())
+  t.fd(1)
+t.pu()
+t.setpos(pos_raio_interno)
+t.seth(-120)
+t.fd(2)
+t.seth(t.towards(posraio_roxo))
+corexterna=255
+t.pd()
+for i in range(int(t.distance(posraio_roxo)-4)):
+  t.color(funcaocor(),funcaocor(),funcaocor())
+  t.fd(1)
